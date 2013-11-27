@@ -4,6 +4,30 @@ Linked Lists are one of the most fundamental Computer Science data structures.
 
 ### Singly-Linked List
 
+In a singly-linked list you have a *head*, the start of the list, and *nodes* which hold the data. Each *node* holds a single element of data and a link to the *next* node in the list.
+
+Using sweet ASCII art, it might look like this:
+
+```
+HEAD ---> ["hello" | -]--> ["world" | -]--> ["!" | ]
+```
+
+The three nodes here hold the data `"hello"`, `"world"`, and `"!"`. The first two node have links which point to other nodes. The last node, holding the data `"!"`, has no reference in the link spot. This signifies that it is the end of the list.
+
+#### Functionality
+
+A fully functional singly linked list can:
+
+* Insert elements
+* Pop an element from the end
+* Push an element onto the beginning
+* Remove the (first occurance | all occurances) of an element by data content
+* Remove an element by position
+* Add an element at an arbitrary position
+* Find whether a data element is or is not in the list
+
+#### Implementation
+
 Implement a singly-linked list using:
 
 * A) Iteration/looping
