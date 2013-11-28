@@ -24,7 +24,9 @@ A fully functional singly linked list can:
 * Remove the (first occurance | all occurances) of an element by data content
 * Remove an element by position
 * Add an element at an arbitrary position
+* Add an element after a known node
 * Find whether a data element is or is not in the list
+* Find the distance between two nodes
 
 #### Implementation
 
@@ -36,6 +38,13 @@ Implement a singly-linked list using:
 ### Doubly-Linked List
 
 In a doubly-linked list, each node has a link to both the previous and next nodes in the list.
+
+#### Functionality
+
+A doubly-linked list implements all the functionality of a singly-linked list and also:
+
+* Insert a node immediately before a known node
+* Find the shortest distance between two nodes
 
 ### Ring List
 
