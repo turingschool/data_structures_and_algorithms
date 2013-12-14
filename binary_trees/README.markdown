@@ -16,3 +16,12 @@ A binary tree is built from *nodes*. Each node has:
 
 ### Sorting
 
+### Implementation Tips
+
+* Start with modeling a node
+* Then attach one node to another
+* Then attach multiple nodes together
+* Then implement search when there's just a single node
+* Then implement search for multiple nodes
+* Then implement sorted output for a single node
+* Then implement sorted output for multiple nodes
