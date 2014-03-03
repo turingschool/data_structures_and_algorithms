@@ -14,6 +14,12 @@ A binary tree is built from *nodes*. Each node has:
 
 ### Searching
 
+Your implementation should be able to confirm or deny the presence of a piece of data in the list.
+
+#### Balancing
+
+The worst case binary tree comes from a list that's already sorted before insertion to the tree. How can you avoid that problem?
+
 ### Sorting
 
 ### Implementation Tips
