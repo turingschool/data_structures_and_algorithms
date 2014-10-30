@@ -38,7 +38,7 @@ class IterativeLinkedListTest < Minitest::Test
     output = list.pop
     assert_equal "hello", output
     assert_equal 0, list.count
-  end  
+  end
 
   def test_it_pops_nil_when_there_are_no_elements
     skip
@@ -110,5 +110,73 @@ class IterativeLinkedListTest < Minitest::Test
     list.push("world")
     node = list.last_node
     assert_equal "world", node.data
+  end
+
+  def test_a_node_links_to_its_next_element
+    skip
+    list.push("hello")
+    list.push("world")
+    assert_equal "world", list.last_node.data
+    assert_equal "hello", list.last_node.next_node.data
+  end
+
+  def test_next_node_for_the_last_node_is_nil
+    skip
+    list.push("world")
+    assert_nil list.last_node.next_node
+  end
+
+  def test_find_if_an_element_is_included_in_the_list
+    skip
+    list.push("hello")
+    list.push("world")
+    assert_equal true, list.include?("hello")
+    assert_equal false, list.include?("bogus")
+  end
+
+  def test_find_a_given_node
+    skip
+    list.push("hello")
+    list.push("world")
+    list.push("today")
+
+    assert_equal "world", list.find("world").data
+    assert_equal "hello", list.find("world").next_node.data
+  end
+
+  def test_inserts_node_at_arbitrary_position
+    skip
+    list.push("hello")
+    list.push("world")
+    list.push("today")
+
+    list.insert(1, "pizza")
+
+    assert_equal 1, list.index("pizza")
+    assert_equal ["hello", "pizza", "world", "today"], list.to_a
+  end
+
+  def test_inserted_node_is_next_node_for_previous_node
+    skip
+    list.push("hello")
+    list.push("world")
+    list.push("today")
+
+    list.insert(1, "pizza")
+
+    assert_equal "hello", list.find("pizza").next_node.data
+    assert_equal "pizza", list.find("world").next_node.data
+  end
+
+  def test_insert_after_adds_a_node_after_a_given_node
+    skip
+    list.push("hello")
+    list.push("world")
+    list.push("today")
+
+    list.insert_after("hello", "pizza")
+
+    assert_equal "hello", list.find("pizza").next_node.data
+    assert_equal "pizza", list.find("world").next_node.data
   end
 end
