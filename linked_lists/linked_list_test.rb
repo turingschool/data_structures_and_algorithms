@@ -117,7 +117,7 @@ class IterativeLinkedListTest < Minitest::Test
     list.push("hello")
     list.push("world")
     assert_equal "world", list.last_node.data
-    assert_equal "hello", list.last_node.next_node.data
+    assert_equal "world", list.head_node.next_node.data
   end
 
   def test_next_node_for_the_last_node_is_nil
@@ -141,7 +141,7 @@ class IterativeLinkedListTest < Minitest::Test
     list.push("today")
 
     assert_equal "world", list.find("world").data
-    assert_equal "hello", list.find("world").next_node.data
+    assert_equal "today", list.find("world").next_node.data
   end
 
   def test_inserts_node_at_arbitrary_position
@@ -164,8 +164,8 @@ class IterativeLinkedListTest < Minitest::Test
 
     list.insert(1, "pizza")
 
-    assert_equal "hello", list.find("pizza").next_node.data
-    assert_equal "pizza", list.find("world").next_node.data
+    assert_equal "world", list.find("pizza").next_node.data
+    assert_equal "pizza", list.find("hello").next_node.data
   end
 
   def test_insert_after_adds_a_node_after_a_given_node
@@ -176,7 +176,7 @@ class IterativeLinkedListTest < Minitest::Test
 
     list.insert_after("hello", "pizza")
 
-    assert_equal "hello", list.find("pizza").next_node.data
-    assert_equal "pizza", list.find("world").next_node.data
+    assert_equal "world", list.find("pizza").next_node.data
+    assert_equal "pizza", list.find("hello").next_node.data
   end
 end
