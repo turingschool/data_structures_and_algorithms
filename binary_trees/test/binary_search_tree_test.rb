@@ -266,4 +266,121 @@ describe BinarySearchTree do
       assert_equal [1,3,2,5,4], @tree.post_ordered
     end
   end
+
+  describe "#min_height" do
+    it "is 0 for empty tree" do
+      skip
+      assert_equal 0, @tree.min_height
+    end
+
+    it "is 1 for tree with root node only" do
+      skip
+      @tree.push(1)
+      assert_equal 1, @tree.min_height
+    end
+
+    it "finds shortest path from root node to a leaf" do
+      skip
+      #        4
+      #       / \
+      #      2   6
+      #     / \
+      #    1   3
+      @tree.push(4)
+      @tree.push(2)
+      @tree.push(1)
+      @tree.push(3)
+      @tree.push(6)
+      assert_equal 2, @tree.min_height
+    end
+  end
+
+  describe "#max_height" do
+    it "is 0 for empty tree" do
+      skip
+      assert_equal 0, @tree.max_height
+    end
+
+    it "is 1 for tree with root node only" do
+      skip
+      @tree.push(1)
+      assert_equal 1, @tree.max_height
+    end
+
+    it "finds shortest path from root node to a leaf" do
+      skip
+      #        4
+      #       / \
+      #      2   6
+      #     / \
+      #    1   3
+      @tree.push(4)
+      @tree.push(2)
+      @tree.push(1)
+      @tree.push(3)
+      @tree.push(6)
+      assert_equal 3, @tree.max_height
+    end
+  end
+
+  describe "#balanced?" do
+    # A binary tree is balanced if its max depth and min depth are within
+    # 1 of each other.
+    it "is balanced for an empty tree" do
+      skip
+      assert @tree.balanced?
+    end
+
+    it "is balanced for a nice tidy tree" do
+      skip
+      #        4
+      #       / \
+      #      2   6
+      #     / \  \ \
+      #    1   3  5 7
+      @tree.push(4)
+      @tree.push(2)
+      @tree.push(1)
+      @tree.push(3)
+      @tree.push(6)
+      @tree.push(5)
+      @tree.push(7)
+      assert_equal 3, @tree.min_height
+      assert_equal 3, @tree.max_height
+      assert @tree.balanced?
+    end
+
+    it "is false for tightly ordered tree" do
+      skip
+      @tree.push(1)
+      @tree.push(2)
+      @tree.push(3)
+      @tree.push(4)
+      refute @tree.balanced?
+    end
+  end
+
+  describe "#balance!" do
+    it "re-balances unbalanced tree" do
+      skip
+      @tree.push(1)
+      @tree.push(2)
+      @tree.push(3)
+      @tree.push(4)
+      refute @tree.balanced?
+      @tree.balance!
+      assert @tree.balanced?
+    end
+
+    it "balances without removing elements from the tree" do
+      skip
+      @tree.push(1)
+      @tree.push(2)
+      @tree.push(3)
+      @tree.push(4)
+      assert_equal [1,2,3,4], @tree.sort
+      @tree.balance!
+      assert_equal [1,2,3,4], @tree.sort
+    end
+  end
 end
