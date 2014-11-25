@@ -131,37 +131,6 @@ describe BinarySearchTree do
     end
   end
 
-  describe "#max_depth" do
-    # max_depth gives us the number of nodes along the longest path from
-    # the root to the furthest leaf
-
-    it "is 0 for an empty tree" do
-      skip
-      assert_equal 0, @tree.max_depth
-    end
-
-    it "gets big if we add lots of the same data" do
-      skip
-      @tree.push(5)
-      @tree.push(5)
-      @tree.push(5)
-      @tree.push(5)
-      @tree.push(5)
-      @tree.push(5)
-      assert_equal 6, @tree.max_depth
-    end
-
-    it "grows more slowly if we add data which creates a balanced tree" do
-      skip
-      @tree.push(5)
-      @tree.push(4)
-      @tree.push(6)
-      @tree.push(7)
-      @tree.push(3)
-      assert_equal 3, @tree.max_depth
-    end
-  end
-
   describe "#to_array" do
     it "is empty for empty tree" do
       skip
