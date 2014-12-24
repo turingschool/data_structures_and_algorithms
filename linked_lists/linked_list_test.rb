@@ -179,4 +179,18 @@ class IterativeLinkedListTest < Minitest::Test
     assert_equal "world", list.find("pizza").next_node.data
     assert_equal "pizza", list.find("hello").next_node.data
   end
+
+  def test_distance_returns_distance_between_two_nodes
+    list.push("hello")
+    list.push("pizza")
+    list.push("world")
+    list.push("today")
+    list.push("tomorrow")
+    assert_equal 3, list.distance("hello", "today")
+    assert_equal 2, list.distance("pizza", "today")
+    assert_equal 2, list.distance("hello", "world")
+    assert_equal 4, list.distance("hello", "tomorrow")
+    assert_equal 1, list.distance("world", "today")
+  end
+  
 end
