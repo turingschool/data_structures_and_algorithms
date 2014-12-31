@@ -38,7 +38,8 @@ end
 
 describe Pathfinder do
   before do
-    @landscape = Landscape.load(File.join(__dir__, "fixtures", "landscape1.txt"))
+    @landscape  = Landscape.load(File.join(__dir__, "fixtures", "landscape1.txt"))
+    @landscape2 = Landscape.load(File.join(__dir__, "fixtures", "landscape2.txt"))
     @pathfinder = Pathfinder.new
   end
 
@@ -48,6 +49,13 @@ describe Pathfinder do
                   [9,2],[9,3],[9,4],[9,5],[8,5],[7,5],[7,6],
                   [7,7],[7,8],[7,9]]
       assert_equal solution, @pathfinder.solve(@landscape)
+    end
+
+    it "Solves with grass" do
+      solution = [[3,4],[3,5],[4,5],[5,5],[6,5],[7,5],[8,5],
+                  [9,5],[10,5],[11,5],[12,5],[13,5],[14,5],
+                  [15,5],[16,5],[16,4]]
+      assert_equal solution, @pathfinder.solve(@landscape2)
     end
   end
 end
