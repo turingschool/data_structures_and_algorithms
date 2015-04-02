@@ -28,8 +28,14 @@ class Landscape
 
   def element_coords(element)
     row = matrix.find { |f| f.include?(element) }
+    return nil unless row
     y = matrix.index(row)
     x = row.index(element)
     [x,y]
+  end
+
+  def value(coords)
+    x,y = coords
+    matrix[y][x]
   end
 end

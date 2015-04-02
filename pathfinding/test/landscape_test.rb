@@ -34,4 +34,10 @@ describe Landscape do
     assert_equal [2,1], landscape.start
     assert_equal [8,9], landscape.finish
   end
+
+  it "finds value at a position" do
+    landscape = Landscape.load(File.join(__dir__, "fixtures", "landscape1.txt"))
+    assert_equal "#", landscape.value([2,2])
+    assert_equal " ", landscape.value([9,5])
+  end
 end
