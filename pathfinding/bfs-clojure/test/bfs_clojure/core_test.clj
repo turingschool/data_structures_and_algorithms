@@ -11,7 +11,7 @@
   (testing "it reads contents of landscape file from resources"
     (is (= "# \n #") (landscape-file "2by2.txt"))))
 
-;(deftest finding-start-position
-  ;(testing "it finds coords for start-position in grid"
-    ;(let [ls (parse-landscape (landscape-file "easiest.txt"))]
-      ;(is (= [1 1] (start-pos ls))))))
+(deftest finding-start-position
+  (testing "it finds coords for start-position in grid"
+    (let [ls (parse-landscape (landscape-file "easiest.txt"))]
+      (is (= [1 1] (start-pos ls))))))

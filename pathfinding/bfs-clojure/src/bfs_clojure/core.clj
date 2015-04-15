@@ -27,4 +27,6 @@
 (defn landscape-file [filename]
   (slurp (.getFile (clojure.java.io/resource filename))))
 
-(defn start-pos [ls])
+(defn start-pos [ls-map]
+  (first (first (filter (fn [pair] (= "S" (last pair))) ls-map))))
+
