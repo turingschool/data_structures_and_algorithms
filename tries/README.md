@@ -61,3 +61,8 @@ actually contain data. Rather, the data a node represents can be
 inferred from the path that was used to reach it (so if we reach a node
 by walking d-o-g, we know already that the node represents "dog" without
 having to label it as such).
+
+For a node to be a terminating (leaf) node, it must represent the result
+of a valid path through the Trie (i.e. a valid word). For intermediate
+(interior) nodes that represent valid words (e.g. "d-o" on the way to
+"d-o-g"), they will need to be labeled or marked in some way.
