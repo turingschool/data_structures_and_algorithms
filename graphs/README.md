@@ -53,7 +53,7 @@ When representing a graph textually, it's common to represent it as a set of ver
 And a set of Edges representing connections between pairs of vertices:
 
 ```
- {(1,7) ,(2,6) ,(3,1),(3,5) ,(4,6) ,(5,4),(5,2) ,(6,8) ,(7,2),(7,8)}
+ {(1,7), (2,6), (3,1), (3,5), (4,6), (5,4), (5,2), (6,8), (7,2), (7,8)}
 ```
 
 Mathematically, a graph is often represented as 2 _sets_ -- one of edges and one of vertices.
