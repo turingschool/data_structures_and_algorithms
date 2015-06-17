@@ -115,5 +115,6 @@ challenges we can look at. A few topics include:
 * [Princeton Intro to Graph Theory](https://www.cs.princeton.edu/courses/archive/fall06/cos341/handouts/graph1.pdf)
 * [Project Euler problem 107](https://projecteuler.net/problem=107)
 * [Project Euler problem 79](https://projecteuler.net/problem=79)
+* [Euler 79 Discussion](http://alexmic.net/password-derivation-project-euler/)
 * [Cycle Detection](http://www.geeksforgeeks.org/detect-cycle-in-a-graph/)
 * [Shortest Path](http://www.geeksforgeeks.org/shortest-path-for-directed-acyclic-graphs/)
