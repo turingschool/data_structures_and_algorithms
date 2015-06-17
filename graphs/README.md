@@ -37,6 +37,25 @@ so let's run through some of them.
 There are a lot of ways to represent a graphs, but they largely fall into 2 categories -- textual/mathematical
 and graphical.
 
+When representing a graph graphically, it's common to represent vertices as circles containing identifiers
+and edges as lines between them. An unconnected vertex would be floating on the side with no lines to it.
+
+Here's one example:
+
+![Graph](http://web.cecs.pdx.edu/~sheard/course/Cs163/Graphics/graph7.png)
+
+When representing a graph textually, it's common to represent it as a set of vertices:
+
+```
+{1,2,3,4,5,6,7,8}
+```
+
+And a set of Edges representing connections between pairs of vertices:
+
+```
+ {(1,7) ,(2,6) ,(3,1),(3,5) ,(4,6) ,(5,4),(5,2) ,(6,8) ,(7,2),(7,8)}
+```
+
 Mathematically, a graph is often represented as 2 _sets_ -- one of edges and one of vertices. 
 
 ### Graph Types
