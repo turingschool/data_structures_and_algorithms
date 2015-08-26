@@ -12,16 +12,16 @@ making it ideally suited for predictive text applications.
 A Trie can be implemented as an N-ary tree, where the root node
 is empty and all of its children represent the first characters
 of the various strings contained in the trie. Consider this
-very simple example storing the strings "cat" and "dog":
+very simple example storing the strings "cat", "dog", and "do":
 
 ```
         Root
       c/    \d
-     node   node
-     a|      |o
-     node   node
-     t|      |g
-  node-cat  node-dog
+    node-()   node-()
+      |a     |o
+    node()  node-(do)
+      |t     |g
+  node-(cat)  node-(dog)
 ```
 
 To search this Trie for cat or dog, we start from the root and
@@ -30,6 +30,14 @@ between the root and the leaves. If we tried to search for "catty"
 we would run out of nodes along the "cat" path before we found all
 of our characters, and thus could determine that "catty" does not
 appear.
+
+Additionally, we can see that some interior "nodes" in the trie serve only as branching or connection
+points to valid nodes that exist further down in the structure (such as the "ca")
+node.
+
+Alternatively, some interior nodes also represent valid words in and of
+themselves (e.g. the "do" node). Your trie implementation will likely
+need some way to distinguish these types of interior nodes.
 
 ### Branching
 
@@ -66,3 +74,23 @@ For a node to be a terminating (leaf) node, it must represent the result
 of a valid path through the Trie (i.e. a valid word). For intermediate
 (interior) nodes that represent valid words (e.g. "d-o" on the way to
 "d-o-g"), they will need to be labeled or marked in some way.
+
+
+### Challenge -- Tries for Text Prediction
+
+A common real-word use-case for tries is doing word prediction,
+such as the auto-completion on your smartphone.
+
+See if you can complete a trie data structure that will
+allow us to fulfill a basic version of this feature.
+We'd like to provide an interface along the lines of:
+
+```
+t = Trie.new
+input_words.each do |w|
+  t.insert(w)
+end
+
+t.suggest("piz")
+=> ["pizza", "pizzeria", "pizzicato"]
+```
