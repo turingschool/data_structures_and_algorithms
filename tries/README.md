@@ -4,7 +4,7 @@ A Trie is a type of branching data structure often used for storing
 and querying words within a body of text. The name comes from the idea
 of "Re__trie__val" -- a Trie is well suited for rapid retrieval of
 a provided search string. Additionally, its organization as a tree
-structure allows it to efficiently all "children" of a given substring,
+structure allows it to efficiently find all "children" of a given substring,
 making it ideally suited for predictive text applications.
 
 ### Visualizing a Trie
