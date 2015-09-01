@@ -172,3 +172,6 @@ __Case Four (aka Right-Right - `N` is right child of right child)__
 * 2c -
 * 2d -
 
+Insertion cases writeup: http://www.geeksforgeeks.org/red-black-tree-set-2-insert/
+
+Insertion cases video: https://www.youtube.com/watch?v=g9SaX0yeneU
