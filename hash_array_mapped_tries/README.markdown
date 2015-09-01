@@ -52,6 +52,8 @@ the value of the existing node
 literal key equivalence
 * Hashcode size -- does it matter? Paper refers to 32-bit hashes but
 seems like any size should work
+* Extension - structural sharing / immutable copying
+* List of operations - set, get, keys?, vals?, get-in
 
 __optional -- shortening hashes__
 
