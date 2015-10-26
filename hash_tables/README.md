@@ -19,22 +19,27 @@ is associative when it allows us to define a relationship
 between 2 values and retrieve one in response to the other.
 
 We've actually already worked frequently with one fundamental
-associative data structure: the Array. Arrays define associative
-relationships between numeric indices and values contained in
-the array.
+associative data structure: the __Array__.
 
-An array is great if our data is ordered and if we are able to
+Arrays define associative relationships between numeric indices and values contained in
+the array -- if we want to look something up in an array,
+we need to either know its numeric index so that we can go
+directly to that position in the array, __or__ we have to
+iterate through every element in the array and look at
+each one to see if it's the element we want.
+
+This is great if our data is ordered and if we are able to
 consistently retrieve it by going directly to its numeric
-index.
+index, but that isn't always the case.
 
-But what about associating between _arbitrary_ data? I want
+I often want to associate between _arbitrary_ keys
+and values (strings, objects, other arrays, etc)? For example, I want
 to associate the string "pizza" with the value "awesome",
 and I don't want to have to define an explicit ordering
-in the process.
+in the process. Additionally, I want to be able to add a whole lot of keys and
+values into the map and maintain a speedy lookup time.
 
-Additionally, I want to be able to add a whole lot of keys and
-values into the map and maintain a speedy lookup time. This is
-where a Hash Table comes in.
+This is where a Hash Table comes in.
 
 ### Hash Table Structure
 
@@ -42,8 +47,8 @@ To implement this data structure, we'll rely on a few key
 tools:
 
 1. A Hashing Algorithm for uniquely differentiating pieces of data.
-Many languages already provide this -- in Ruby you can access an
-object's hashcode by calling `#hash` on it.
+Many languages already provide this -- in this example we'll look at
+using the SHA-1 implementation included with Ruby's Digest library.
 2. An internal array which we'll ultimately use to store data
 3. An additional abstraction for handling "collisions" between
 hashcodes within the data structure.
@@ -52,6 +57,10 @@ To some extent, a Hash Table is a bit of Data Structure "sleight of hand"
 -- it allows us to translate arbitrary data (i.e. hash keys) into
 numeric array indices, and thus take advantage of the speedy
 index lookups we get out of the box with an array.
+
+### Hash Function Basics
+
+
 
 ### Hash Table Algorithm
 
