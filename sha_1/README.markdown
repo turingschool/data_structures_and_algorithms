@@ -115,6 +115,37 @@ For now, we can imagine doing something like this:
 => "0111000001101001011110100111101001100001"
 ```
 
+__Padding the Message__
+
+Now that we have some binary representation of our incoming message,
+we need to "pad" it. The reason for padding the message is that the
+SHA-1 algorithm is designed to work on blocks of 512 bits at a time.
+
+To facilitate this, we need to massage the message to give it a bit-length
+that fits neatly into our block size.
+
+* Modulo Congruence
+* Target 448 congruence
+* Leaving room for 64-bit message length
+
+__Appending Binary Message-Length__
+
+Now that we've padded out the message, we're going to finish
+out the last block by adding a series of bits representing
+the length of the original message.
+
+The length we're interested in is the original length of the
+message in bytes (or characters, in ASCII), and we'll be
+expressing it as a 64-bit integer. Hence why it was so important
+to pad the message out to congruence with 448 mod 512 -- to leave
+room for these 64 message-length bits at the end.
+
+For this step, take the length of the message, turn it to binary, and
+left-pad it to make sure the overall length works out to 64 bits.
+
+(Alternatively, you can simply make sure your value is cast to a
+64-bit int, for example Java's `long` type)
+
 #### random notes
 
 "Add appropriate number of 0 bytes to bring message into congruence with 448
