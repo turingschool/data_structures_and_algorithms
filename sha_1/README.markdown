@@ -17,13 +17,85 @@ In order to smooth things out, we need to pre-process the message
 a bit in order to get it into a compatible format. A rough
 outline of the steps looks like this:
 
-1. "Pad" the message bits to be congruent with 448 modulo 512
-2. Separate the message from the appended padding by a "1" bit
-3. Append 64 bits representing the original length of the message
+1. Convert the message into its bit-array (or byte-array) representation
+2. "Pad" the message bits to be congruent with 448 modulo 512
+3. Separate the message from the appended padding by a "1" bit
+4. Append 64 bits representing the original length of the message
 in characters (or bytes)
 
-#### random notes
+__Converting the message to bytes__
 
+For the remainder of the algorithm, we'll be working with the
+underlying bits (or bytes) that make up the text of the message.
+To get started, we need to first convert the message into
+a sequence of bits.
+
+There are various ways to handle this, and they will likely vary
+depending on how "low level" your language is, and what facilities
+it exposes to you for doing low-level bit manipulation.
+
+For example in C, we might simply allocate a large block of memory
+equivalent to the bit-length we'll ultimately need to work with
+and start going to town.
+
+In Java or other JVM languages, we might work with a byte array --
+a sequential data structure for working with a series of bytes,
+or 8-bit units.
+
+Yet another option which, while probably not the fastest, might
+make things easier to inspect and reason about, would be to
+use your language's built-in String facilities to model the problem
+around a series of literal "0" and "1" characters.
+
+In any case, you'll want to start out by converting your message
+character by character into a sequence of bytes. This is pretty
+easy for simple Latin text, since the ASCII character encoding is
+built around a byte-per-character model.
+
+Each character in ASCII maps to a predefined byte value, which
+we can ultimately encode in our string as a sequence of 8 bits.
+See [this table](http://www.asciitable.com/) for a list of the various
+encodings.
+
+In Ruby, for example, we can convert a character to its ASCII value
+like so:
+
+```ruby
+>"pizza".each_byte.to_a
+=> [112, 105, 122, 122, 97]
+```
+
+The `String#ord` method is useful for this as well:
+
+```ruby
+>"p".ord
+=> 112
+> "pizza".chars.map(&:ord)
+=> [112, 105, 122, 122, 97]
+```
+
+Next we would want to convert these each to an 8-bit binary
+number, and combine them all together:
+
+```ruby
+> "pizza".chars.map(&:ord).map { |i| i.to_s(2) }
+["1110000", "1101001", "1111010", "1111010", "1100001"]
+```
+
+And then join them together:
+
+```ruby
+> "pizza".chars.map(&:ord).map { |i| i.to_s(2) }.join
+"pizza".chars.map(&:ord).map { |i| i.to_s(2) }.join
+"11100001101001111101011110101100001"
+```
+
+Getting close, but if we look closely, we'll see that we
+ended up with a 35-bit binary string, as opposed to the expected
+40 bits.
+
+
+#### random notes
 
 "Add appropriate number of 0 bytes to bring message into congruence with 448
 mod 512 (56 mod 64 bytes). Additionally, the first bit of this padding sequence
