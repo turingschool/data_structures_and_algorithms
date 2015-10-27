@@ -94,6 +94,26 @@ Getting close, but if we look closely, we'll see that we
 ended up with a 35-bit binary string, as opposed to the expected
 40 bits.
 
+One tricky issue when working with binary numbers is to make sure
+we aren't losing or unintentionally colliding our numbers.
+In this case, Ruby omits leading `0`'s when converting a number
+to a binary string.
+
+This is one area where working with something like a byte
+array would help us (since a literal byte will preserve the appropriate
+8 bits), but if you want to go down the string route you'll need
+to "pad" your bits to preserve leading 0's.
+
+For now, we can imagine doing something like this:
+
+```ruby
+>"pizza".chars.map(&:ord).map do |i|
+    i.to_s(2)
+  end.map do |i|
+    "0" + i
+  end.join.length
+=> "0111000001101001011110100111101001100001"
+```
 
 #### random notes
 
