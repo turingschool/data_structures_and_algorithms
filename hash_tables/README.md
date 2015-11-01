@@ -127,8 +127,8 @@ table = Array.new(10) # 10-element hash table to start
 key = "pizza"
 value = "awesome"
 
-digest = Digest::SHA1.hexdigest(key).to_i(16)
-position = digest % table.length
+digest = Digest::SHA1.hexdigest(key).to_i(16) # 179405067335283640084579532467505022408577155607
+position = digest % table.length # 7
 
 table[position] = value
 ```
@@ -144,3 +144,38 @@ than writing to it.
 Congrats! You made a naive but somwewhat functional hash table.
 
 ### Handling Collisions
+
+The example above gives us a good overview of the basic
+concept of a hash table, but it leaves out an important
+ingredient: resolving hash index collisions.
+
+Most Hashing Functions are designed to be *collision resistant* --
+that is, it should be relatively impossible to find 2 inputs that
+hash to the same output.
+
+However consider what would happen if we wanted to insert
+the key "aardwolf" pointing at the value "strange critter".
+
+"aardwolf" hashes to 582992241920298993175351113381634332712414316697,
+which comes out to 7, modulo 10 -- the same as the "pizza" key we previously
+inserted. With our current implementation, we don't have a way to distinguish
+these keys.
+
+The problem is that we aren't actually utilizing
+the entire space of possible hash values (1461501637330902918203684832716283019655932542975
+possibilities in the case of SHA1). Rather, the number of slots we have available is limited by the size
+of the internal array we are using for data storage.
+
+So the enormous
+count of possibile values produced by our hash function gets reduced
+down to a fairly small amount once we start mod-ing it by the length
+of our table.
+
+This illustrates 2 interesting points about a Hash Table:
+
+1. Determining the initial size of the table is a trade-off
+between efficient use of space and likelihood of collisions.
+Using a very large table will likely end up in lots of unused spaces,
+but we'll have a lower chance that 2 inputs hash to the same position.
+2. Even with a large hash table collisions are still inevitable, so
+a viable implementation needs to be able to handle these cases.
