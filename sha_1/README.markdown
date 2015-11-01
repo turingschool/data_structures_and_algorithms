@@ -194,15 +194,6 @@ meessage length appended"
 ;; from the original 17
 ```
 
-
-
-
-
-
-
-
-
-
 ;; string "ab" should give
 ;; 97,98 binary
 ;; + "1"
@@ -223,7 +214,6 @@ mod 512, leaving 8 bytes for message length in next block"
 "message longer that is greater than 448 mod 512 bits still has to
 pad to 448 congruence in next block since there aren't enough bits
 left in current block for 64-bit message-length encoding"
-
 
 "generates byte-array for encoding message length as 64-bit long"
 
