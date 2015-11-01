@@ -4,6 +4,9 @@
 
 ## SHA-1 Resources
 
+A great writeup of the SHA-1 process with fairly detailed
+examples can be found [here](http://m.metamorphosite.com/one-way-hash-encryption-sha1-data-software).
+
 ## SHA-1 Process
 
 ### 1. Prep the message
