@@ -179,3 +179,80 @@ Using a very large table will likely end up in lots of unused spaces,
 but we'll have a lower chance that 2 inputs hash to the same position.
 2. Even with a large hash table collisions are still inevitable, so
 a viable implementation needs to be able to handle these cases.
+
+### Chaining
+
+There are many ways to handle the collision problem, but they
+generally fall into 2 camps:
+
+1. Use a secondary data structure to allow each hash "bucket"
+to contain multiple pairs of keys and values. Then when we retrieve
+the bucket index for a given key, we can filter through the secondary
+structure to find the specific K/V we're looking for.
+2. Dynamically resize the table as it fills to avoid collisions by
+creating additional space
+
+In reality, many production implementations use some combination
+of these approaches. For now we're going to discuss the first
+approach, which is sometimes referred to as "Chaining" the hash
+table.
+
+The idea is relatively straightforward: Instead of simply dumping
+values into the table indicies indicated by a key's hash value,
+we will use each bucket to store a Linked List of table "nodes",
+each containing a key, a value, and potential link to the next
+node in the chain.
+
+Thus when we insert a K/V pair, we have 2 possible cases:
+
+1. This is the first pair to be inserted into that bucket,
+so it becomes the "head" of the chain in that bucket.
+2. There is already a chain in that bucket, so we need to
+append this new pair to the tail of the existing chain.
+
+Similarly, when retrieving values, we have 3 cases:
+
+1. There is no value in the appropriate bucket (so our
+key is not their)
+2. There is a value in the appropriate bucket, and its
+head node contains the key we are looking for. Thus we
+can read the value from that node.
+3. There is a value in the appropriate bucket, but the head
+node does not contain the key we are looking for. Thus we need
+to keep looking through nodes in this chain until we find
+the key we're looking for. Reaching the tail without finding it means our
+key is not there.
+
+#### Chaining Drawbacks
+
+Let's briefly discuss the pros and cons of this approach.
+
+Pros:
+
+* Flexible
+* Can still start our table with relatively small number
+of buckets
+
+Cons:
+
+* Additional complexity in insertion / lookup process
+* Performance degrades as chain lengths grow
+
+The key with the chaining approach is to make sure none of your
+buckets get too big. We could in theory have a chained hash
+table with 1 bucket, but obviously it would just become a
+linked list with linear lookup time.
+
+However if we can have a balance of a fairly large table
+size with short chains of a handful of links each, our overall
+lookup time will remain constant. This is why, as we mentioned,
+more sophisticated implementations will generally use some combination
+of chaining and dynamic resizing.
+
+Another possible optimization includes using a more sophisticated
+data structure such as a BST or Red-Black Tree for chaining within the buckets.
+This allows the lookup time within each chain to be even faster.
+
+This approach has lots of interesting applications, and starts
+to blur the line between a traditional Hash Table and another
+related data structure, the [Hash-Array Mapped Trie](https://github.com/turingschool/data_structures_and_algorithms/blob/master/hash_array_mapped_tries/README.markdown).
