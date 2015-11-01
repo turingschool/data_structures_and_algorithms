@@ -108,9 +108,8 @@ We'll exploit this property of the hash digests in the next step.
 
 So how does it work? In short, when creating a new Hash Table, we'll
 allocate an internal array to actually store our data. Later on
-we may introduce an additional abstraction around Nodes or Elements,
-but the array is going to be our fundamental storage mechanism
-for the data.
+we may introduce additional abstractions around Nodes, Elements, or Chains,
+but an array will be the fundamental storage and access mechanism.
 
 When asked to insert a Key/Value pair into the array, we need to
 map it to a numeric index within our internal array. Here's where
@@ -133,3 +132,15 @@ position = digest % table.length
 
 table[position] = value
 ```
+
+The hashing function produces a numeric digest of our data,
+and we use the array indices to map this to a numeric
+position in the element list.
+
+When we want to retrieve an element, we will follow the same
+process, but simply read from that array index rather
+than writing to it.
+
+Congrats! You made a naive but somwewhat functional hash table.
+
+### Handling Collisions
