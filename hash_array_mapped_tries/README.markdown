@@ -188,8 +188,50 @@ Consider our "calzone" example from before:
 
 We now get a completely different subtrie index, helping us avoid
 the "stacking" behavior we would get if we just re-used the existing one.
+As we walk down the trie, we want to use this technique to shift off 5 bits at each
+layer.
 
-* Extension - structural sharing / immutable copying
-* List of operations - set, get, keys?, vals?, get-in
+### Retrieval Algorithm
+
+The retrieval process is effectively the same. We'll simply retrieve the located
+value rather than inserting one. Consider the same 3 cases:
+
+1. The current tree node is empty -- this means we have "bottomed out",
+so our key must not exist in the trie
+2. The current tree node contains the key you're searching for, so
+retrieve its value.
+3. The current tree node is not empty, but doesn't contain the key
+we're looking for. Use another 5-bit slice of the hash code to identify
+the next step to take into the trie.
+
+## HAMT Performance
+
+The strength of the HAMT is its wide branching factor. The 32-bit factor
+is common because it can be manipulated efficiently on 32-bit processors,
+but you could in theory use an even larger factor if needed.
+
+This branching factor allows us to store a large amount of keys and values
+in a relatively shallow tree which will still be very quick to traverse.
+
+For example in just 6 layers, we could store `33,554,432` (`32 ** 5`, assuming
+the root only stores 1 pair) keys and values.
+
+This means that in reality, the performance of our Tree will be logarithmic,
+as opposed to the than the Constant-time performance offered by many
+traditional Hash Map implementations. However the log base is `32`,
+which grows at such a small rate that its difference to constant time is
+fairly negligible.
+
+## Recommended List of Operations
+
+Try implementing the following basic operations on your HAMT:
+
+* `set(key,val)`
+* `get(key)`
+* `keys`
+* `vals`
+* `get_in(key_path)`
+
+## Other Considerations
 
 
