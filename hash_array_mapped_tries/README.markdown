@@ -232,6 +232,28 @@ Try implementing the following basic operations on your HAMT:
 * `vals`
 * `get_in(key_path)`
 
-## Other Considerations
+## Other Considerations -- Structural Sharing
 
+We mentioned the ability of our tries to potentially share duplicated
+structure with other tries. This is a common approach to creating
+immutable or "persistent" hash maps and is used in several functional languages like
+Clojure, Scala, and Frege.
 
+The goal for this technique is to preserve every intermediate state of the Map
+(i.e. they "persist"). Thus each operation on the map should generate a new
+map value rather than modifying an existing one in place.
+
+This would be problematic if we had to completely copy every node in the trie
+each time we changed anything. But because of the trie's
+nested structure, we have a better option.
+
+Whenever we need to change the trie, we duplicate the node in question
+as well as all the nodes within its path to the root.
+
+Thus we get a new root node (this represents the "new" Map produced by our
+operation), and a new path to the internal node that was actually changed.
+
+The nodes that we copy can continue referring to the other existing
+nodes so that those don't have to be copied. In practice this allows
+us to produce a "copy" of the entire trie by actually copying only
+a handful of nodes.
