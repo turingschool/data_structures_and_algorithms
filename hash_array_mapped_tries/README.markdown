@@ -96,18 +96,18 @@ key and value, and the key is *not* the one we're trying
 to insert. We need to go deeper into the trie to find
 a place for our new pair.
 
-To insert a piece of data, we first need to generate its
+To insert a key, we first need to generate its
 hash value. Again, in Ruby, we can use one of the hashing
 functions included in the Digest library. This gives us a (large) numeric
 value representing a unique digest of that piece of data.
 
 For example:
 
-```
+```ruby
 [1] pry(main)> require "digest"
 => true
-[2] pry(main)> Digest::SHA1.hexdigest("pizza").to_i(16)
-=> 179405067335283640084579532467505022408577155607
+[2] pry(main)> Digest::SHA1.hexdigest("calzone").to_i(16)
+=> 334703588949583183218034173573122019749278332384
 ```
 
 To walk the trie and an appropriate location for this element,
@@ -122,53 +122,74 @@ represent all 32 possible child branches using a single bitmap.
 (`2 ** 5 == 32`)
 
 To get the numeric value of the first 5 bits of our hashcode,
-we can bitwise AND it with a 5-bit number containing all "on" bits:
+we can bitwise `AND` it with a 5-bit number containing all "on" bits:
 
 ```
 [13] pry(main)> 31.to_s(2)
 => "11111"
-[14] pry(main)> Digest::SHA1.hexdigest("pizza").to_i(16) & 31
-=> 23
+[14] pry(main)> Digest::SHA1.hexdigest("calzone").to_i(16) & 31
+=> 0
 ```
 
 This tells us that the "right-most" 5 bits of the number
-179405067335283640084579532467505022408577155607 ("pizza"'s hash code)
-are `10111`, or 23.
+334703588949583183218034173573122019749278332384 ("calzone"'s hash code)
+are `00000`, or 0.
 
-Now, we will work our way down from the top of the tree, looking
-for one of 2 things:
+This tells us the position in the current node's children array
+to insert this element.
 
-* __a)__ - We find an empty spot in the tree, and can insert our
-new key/value pair there
-* __b)__ - We find a collision between the K/V we are trying to insert
-and an existing key/value. In this case, we need to overwrite
-the value of the existing node
+Thus we can move to the `0`th subtree under our current one
+and retry our insertion algorithm. In our case, "calzone"
+is only the second element to be inserted in the trie, so
+the `0`th child of the "pizza" node will be empty, and we
+can insert our data there.
 
-### TODO - notes and Remaining Q's
+#### Consuming the hash code
 
-* How to determine genuine collisions (overwrite the key) vs. initial collisions
-(keep consuming hashcode slices to find appropriate slot) -- compare
-literal key equivalence
-* Hashcode size -- does it matter? Paper refers to 32-bit hashes but
-seems like any size should work
+We mentioned that we would "consume" the key's hash code in 5-bit
+chunks. This helps us fully exploit the wide branching factor of the
+trie to insert a lot of elements in a fairly shallow data structure.
+
+If we simply re-use the same 5 (rightmost) bits that we used in the
+previous example, we effectively turn our trie into a collection
+of 32 linked lists, since all elements that share an initial 5-bit
+value will stack up on one another in a chain.
+
+We would prefer to get more of a "zig-zag" effect, and we can achieve
+this by making sure we use a different 5-bit chunk at each layer in
+the trie.
+
+To do this, we'll use another bit-wise operator, the **right shift**.
+
+A bitwise shift simply takes the bits that make a number and slides
+them in one direction in another.
+
+In the case of a left shift, we move the existing bits to the left,
+usually padding them with 0's on the righthand side.
+
+For example:
+
+```ruby
+[20] pry(main)> 15.to_s(2)
+=> "1111"
+[21] pry(main)> (15 << 4).to_s(2)
+=> "11110000"
+```
+
+In our case, we just want to consume the next 5 bits of our
+hash code value, so we can use a right shift of 5 bits.
+
+Consider our "calzone" example from before:
+
+```ruby
+[24] pry(main)> (Digest::SHA1.hexdigest("calzone").to_i(16) >> 5) & 31
+=> 15
+```
+
+We now get a completely different subtrie index, helping us avoid
+the "stacking" behavior we would get if we just re-used the existing one.
+
 * Extension - structural sharing / immutable copying
 * List of operations - set, get, keys?, vals?, get-in
-
-__optional -- shortening hashes__
-
-In ruby, hash-codes are 64-bit, so we'll just use the least-significant
-32 bits. You can capture these from a hash code with the bitwise
-`&` operator:
-
-```
-# Take the bitwise union of our hash code and the largest
-# 32-bit number
-"pizza".hash & (2**32 - 1)
-```
-
-In short, a HAMT uses a high-branch-factor trie (ours will have a
-branching factor of 32) to organize a large amount of data in
-a shallow trie structure. Additionally, it uses a Hashing algorithm
-to differentiate between unique pieces of data.
 
 
