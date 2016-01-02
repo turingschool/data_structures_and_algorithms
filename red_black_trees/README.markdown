@@ -121,8 +121,7 @@ __Node Creation / Insertion__
 1. Create a new node `N` to hold the inserted piece of data
 2. If the tree is empty, `N` will become the new root node, so
 make it black
-3. Otherwise, insert `N` into the tree as with a normal BST.
-4. Inserted nodes are always red
+3. Otherwise, insert `N` into the tree as with a normal BST and make it red
 
 __Tree Rotation / Rebalancing__
 
@@ -148,15 +147,16 @@ So in this example, we would say 6 is an uncle node of 3:
 __Aunt/Uncle Cases__
 
 Now, we need to look at how to adjust the tree based on the various
-arrangements of our tree.
+arrangements of our tree when we have inserted a new node.
 Again, we have to subdivide these into 2 sub-groups of cases,
 depending on the color of the aunt nodes.
 
 1. Aunt node is Red
 2. Aunt node is Black
+
 #### Aunt Node is Red Subcase
 
-In this case recoloring can be implemented:
+In this case just recoloring can be implemented (no rotations needed!):
 
 ```
     5(B)
@@ -167,7 +167,7 @@ In this case recoloring can be implemented:
 ```
 Property 4 will be violated whenever a new node is inserted on the tree.
 If the Aunt (Uncle) is red we can implement recoloring. Parent, Aunt and
-Grandparent should their colors swapped.
+Grandparent should each have the inverse their colors.
 
 ```
     5(R)
@@ -189,106 +189,102 @@ the newly inserted node, `N`, the Parent / Uncle generation, and the
 Grandparent generation.
 
 For this generation configuration, we will see that we actually have
-4 possible positions for our new node:
+2 possible positions for our new node (duplicated on the opposite side):
 
 __Case One (aka Left-Left - `N` is left child of left child)__
 
 ```
-    G
-   / \
-  P   NIL
+    G(B)
+   /    \
+  P(R)  NIL(B)
  /
-N
+N(R)
 ```
+Consider that a NIL leaf and a node colored black are the same in the algorithms
+ logic
 
 __Case Two (aka Left-Right - `N` is right child of left child)__
 
 ```
-    G
-   / \
-  P   NIL
+    G(B)
+   /   \
+P(R)   NIL(B)
    \
-    N
+    N(R)
 ```
-
-__Case Three (aka Right-Left - `N` is left child of right child)__
-
-```
-    G
-   / \
-  NIL P
-     /
-    N
-```
-
-__Case Four (aka Right-Right - `N` is right child of right child)__
-
-```
-    G
-   / \
-  NIL P
-       \
-        N
-```
-
 Consider that a NIL leaf and a node colored black are the same in the algorithms
  logic
 
-After a rotation occurs the parent and grandparent will need recoloring
+
+Solutions to these violations of Property 4!!!
 
 **2a - Rotate grandparent right**
 
 ```
-    P
-   / \
-  N   G
-       \
-       NIL
+Initial insertion
+
+    G(B)
+   /    \
+  P(R)  NIL(B)
+ /
+N(R)
+
+Rotate G(B) right
+
+    P(R)
+   /    \
+  N(R)  G(B)
+          \
+          NIL(B)
+
+Recolor
+
+    P(B)
+   /    \
+  N(R)  G(R)
+          \
+          NIL(B)
 
 ```
 
 **2b - Rotate parent left then rotate grandparent right**
 
 ```
-    G
-   / \
-  P   NIL
+Initial insertion
+
+    G(B)
+   /    \
+  P(R)  NIL(B)
+   \
+   N(R)
+
+Rotate P(R) left
+
+    G(B)
+   /    \
+  N(R)  NIL(B)
  /
-N
+P(R)
 
-    P
-   / \
-  N   G
-       \
-       NIL
 
-```
+Rotate G(B) right
 
-**2c - Rotate parent right then rotate grandparent left**
-```
-    G
-   / \
-  NIL P
-       \
-        N
+    N(R)
+   /    \
+  P(R)  G(B)
+          \
+          NIL(B)
 
-    P
-   / \
-  G   N
- /
-NIL
+Recolor
+
+    N(B)
+   /    \
+  P(R)  G(R)
+          \
+          NIL(B)
 
 ```
 
-**2d - Rotate grandparent left**
-
-```
-    P
-   / \
-  G   N
- /
-NIL        
-```
 
 
 
