@@ -67,6 +67,43 @@ This is exactly the problem a [Red-Black Tree](https://en.wikipedia.org/wiki/Red
 
 #### RB Tree Coloring Conventions
 
+So why is a Red-Black tree named as such?
+
+In order for the tree to self balance it needs a general understanding of its nodes. Color coding each as red or black (pink/green if you want to fight the power!) serves this purpose.
+
+#### RB Tree Fundamentals
+
+**Properties**
+
+1. A node is either red or black.
+2. The root is black. This rule is sometimes omitted. Since the root can always be changed from red to black, but not necessarily vice versa, this rule has little effect on analysis.
+3. All leaves (NIL) are black.
+4. If a node is red, then both its children are black.
+5. Every path from a given node to any of its descendant NIL nodes contains the same number of black nodes. The uniform number of black nodes in the paths from root to leaves is called the black-height of the red–black tree.
+
+Source: https://en.wikipedia.org/wiki/Red–black_tree
+
+**Property overview**
+
+ 1. This is simplistic and can be represented by a bit (0 / 1) with in each node
+ 2. Simpler to implement if you just assume "Root must be black!!"
+ 3. In a normal Binary Search Tree leaves are typically nodes with values associated with them. RB trees also have leaves but they have a NIL value associated with them.
+ 4. This property combined with property 5 will determine the shape of the tree
+ 5. Unfortunately the definition above is pretty good (even though it is confusing). An example will hopefully give some context:
+
+ ```
+x = NIL(B)
+
+            5(B)
+           /   \
+        4(R)   6(R)
+       /  \    /   \
+      x    x   x     x   
+ ```
+In the valid tree above the root would have a black height of 1. The black height is the number of black nodes between the given node (root) and a descendant leaf. So if the left most path is taken the root would encounter 1 black node (which would be the leaf itself). Property 5 asserts on each path one black node must be crossed.
+
+The combination of properties 4 and 5 force the tree to be about balanced on both sides.  
+
 #### RB Tree Insertion
 
 Insertion is one of the crucial operations for an RBT, as this is
@@ -85,6 +122,7 @@ __Node Creation / Insertion__
 2. If the tree is empty, `N` will become the new root node, so
 make it black
 3. Otherwise, insert `N` into the tree as with a normal BST.
+4. Inserted nodes are always red
 
 __Tree Rotation / Rebalancing__
 
@@ -116,6 +154,21 @@ depending on the color of the aunt nodes.
 
 1. Aunt node is Red
 2. Aunt node is Black
+#### Aunt Node is Red Subcase
+
+In this case recoloring can be implemented:
+
+```
+    5(B)
+   /   \
+  4(R) 6(R)
+ /
+3(R)
+```
+
+Property 4 will be violated when a new insertion is made
+
+
 
 #### Aunt Node is Black Subcases
 
