@@ -165,9 +165,20 @@ In this case recoloring can be implemented:
  /
 3(R)
 ```
+Property 4 will be violated whenever a new node is inserted on the tree.
+If the Aunt (Uncle) is red we can implement recoloring. Parent, Aunt and
+Grandparent should their colors swapped.
 
-Property 4 will be violated when a new insertion is made
-
+```
+    5(R)
+   /   \
+  4(B) 6(B)
+ /
+3(R)
+```
+Depending on whether this is a subtree or the root it could violate property 2!
+When it is the root feel free to recolor it to black. This will not violate
+property 5.
 
 
 #### Aunt Node is Black Subcases
@@ -185,7 +196,7 @@ __Case One (aka Left-Left - `N` is left child of left child)__
 ```
     G
    / \
-  P   A
+  P   NIL
  /
 N
 ```
@@ -195,7 +206,7 @@ __Case Two (aka Left-Right - `N` is right child of left child)__
 ```
     G
    / \
-  P   A
+  P   NIL
    \
     N
 ```
@@ -205,7 +216,7 @@ __Case Three (aka Right-Left - `N` is left child of right child)__
 ```
     G
    / \
-  A   P
+  NIL P
      /
     N
 ```
@@ -215,16 +226,75 @@ __Case Four (aka Right-Right - `N` is right child of right child)__
 ```
     G
    / \
-  A   P
+  NIL P
        \
         N
 ```
 
-* 2a -
-* 2b -
-* 2c -
-* 2d -
+Consider that a NIL leaf and a node colored black are the same in the algorithms
+ logic
+
+After a rotation occurs the parent and grandparent will need recoloring
+
+**2a - Rotate grandparent right**
+
+```
+    P
+   / \
+  N   G
+       \
+       NIL
+
+```
+
+**2b - Rotate parent left then rotate grandparent right**
+
+```
+    G
+   / \
+  P   NIL
+ /
+N
+
+    P
+   / \
+  N   G
+       \
+       NIL
+
+```
+
+**2c - Rotate parent right then rotate grandparent left**
+```
+    G
+   / \
+  NIL P
+       \
+        N
+
+    P
+   / \
+  G   N
+ /
+NIL
+
+```
+
+**2d - Rotate grandparent left**
+
+```
+    P
+   / \
+  G   N
+ /
+NIL        
+```
+
+
+
 
 Insertion cases writeup: http://www.geeksforgeeks.org/red-black-tree-set-2-insert/
 
 Insertion cases video: https://www.youtube.com/watch?v=g9SaX0yeneU
+
+Better visual representation of rotations: http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-046j-introduction-to-algorithms-sma-5503-fall-2005/video-lectures/lecture-10-red-black-trees-rotations-insertions-deletions/lec10.pdf
