@@ -151,10 +151,10 @@ arrangements of our tree when we have inserted a new node.
 Again, we have to subdivide these into 2 sub-groups of cases,
 depending on the color of the aunt nodes.
 
-1. Aunt node is Red
-2. Aunt node is Black
+1. Aunt/Uncle node is Red
+2. Aunt/Uncle node is Black
 
-#### Aunt Node is Red Subcase
+#### Aunt/Uncle Node is Red Subcase
 
 In this case just recoloring can be implemented (no rotations needed!):
 
@@ -181,7 +181,7 @@ When it is the root feel free to recolor it to black. This will not violate
 property 5.  
 
 
-#### Aunt Node is Black Subcases
+#### Aunt/Uncle Node is Black Subcases
 
 In these cases, we need to
 consider the tree from a perspective of 3 "generations" at a time:
