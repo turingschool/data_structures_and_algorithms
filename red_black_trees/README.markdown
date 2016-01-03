@@ -100,7 +100,7 @@ x = NIL(B)
        /  \    /   \
       x    x   x     x   
  ```
-In the valid tree above the root would have a black height of 1. The black height is the number of black nodes between the given node (root) and a descendant leaf. So if the left most path is taken the root would encounter 1 black node (which would be the leaf itself). Property 5 asserts on each path one black node must be crossed.
+In the valid tree above the root would have a black height of 1. The black height is the number of black nodes between the given node (root) and a descendant leaf. So if the left most path is taken the root would encounter 1 black node (which would be the leaf itself). Property 5 asserts on that all of the paths from the said node (our case the root) must have the same number of black node encounters. So for all four paths the root can take to the leaves the black height must be one in order for it to be a valid RB tree
 
 The combination of properties 4 and 5 force the tree to be about balanced on both sides.  
 
@@ -189,7 +189,7 @@ the newly inserted node, `N`, the Parent / Uncle generation, and the
 Grandparent generation.
 
 For this generation configuration, we will see that we actually have
-2 possible positions for our new node (duplicated on the opposite side):
+2 possible positions for our new node (also duplicated on the opposite side):
 
 **Case One (aka Left-Left - `N` is left child of left child)**
 
@@ -200,7 +200,7 @@ For this generation configuration, we will see that we actually have
  /
 N(R)
 ```
-Consider that a NIL leaf and a node colored black are the same logic
+NIL leaf and a node colored black are the same logic
 
 **Case Two (aka Left-Right - `N` is right child of left child)**
 
@@ -211,10 +211,10 @@ P(R)   NIL(B)
    \
     N(R)
 ```
-Consider that a NIL leaf and a node colored black are the same logic
+NIL leaf and a node colored black are the same logic
 
 
-__Solutions__
+####Solutions
 
 **Solution One (aka Left-Left - `N` is left child of left child)**
 
@@ -245,7 +245,7 @@ Recolor
 
 ```
 
-**Solution Two (aka Left-Left - `N` is left child of left child)**
+**Solution Two (aka Left-Right - `N` is right child of left child)**
 
 ```
 Initial insertion
