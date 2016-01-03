@@ -196,7 +196,7 @@ For this generation configuration, we will see that we actually have
 ```
     G(B)
    /    \
-  P(R)  U(B)
+  P(R)  NIL(B)
  /
 N(R)
 ```
@@ -207,7 +207,7 @@ Consider that a NIL leaf and a node colored black are the same logic
 ```
     G(B)
    /   \
-P(R)   U(B)
+P(R)   NIL(B)
    \
     N(R)
 ```
@@ -223,7 +223,7 @@ Initial insertion
 
     G(B)
    /    \
-  P(R)  U(B)
+  P(R)  NIL(B)
  /
 N(R)
 
@@ -233,7 +233,7 @@ Rotate G(B) right
    /    \
   N(R)  G(B)
           \
-          U(B)
+          NIL(B)
 
 Recolor
 
@@ -241,7 +241,7 @@ Recolor
    /    \
   N(R)  G(R)
           \
-          U(B)
+          NIL(B)
 
 ```
 
@@ -252,7 +252,7 @@ Initial insertion
 
     G(B)
    /    \
-  P(R)  U(B)
+  P(R)  NIL(B)
    \
    N(R)
 
@@ -260,7 +260,7 @@ Rotate P(R) left
 
     G(B)
    /    \
-  N(R)  U(B)
+  N(R)  NIL(B)
  /
 P(R)
 
@@ -271,7 +271,7 @@ Rotate G(B) right
    /    \
   P(R)  G(B)
           \
-          U(B)
+          NIL(B)
 
 Recolor
 
@@ -279,7 +279,7 @@ Recolor
    /    \
   P(R)  G(R)
           \
-          U(B)
+          NIL(B)
 
 ```
 
