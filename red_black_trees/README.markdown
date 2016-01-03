@@ -165,9 +165,9 @@ In this case just recoloring can be implemented (no rotations needed!):
  /
 3(R)
 ```
-Property 4 will be violated whenever a new node is inserted on the tree.
+Property 4 will be violated sometimes a new node is inserted on the tree.
 If the Aunt (Uncle) is red we can implement recoloring. Parent, Aunt and
-Grandparent should each have the inverse their colors.
+Grandparent should each inverse their colors.
 
 ```
     5(R)
@@ -178,7 +178,7 @@ Grandparent should each have the inverse their colors.
 ```
 Depending on whether this is a subtree or the root it could violate property 2!
 When it is the root feel free to recolor it to black. This will not violate
-property 5.
+property 5.  
 
 
 #### Aunt Node is Black Subcases
@@ -191,41 +191,39 @@ Grandparent generation.
 For this generation configuration, we will see that we actually have
 2 possible positions for our new node (duplicated on the opposite side):
 
-__Case One (aka Left-Left - `N` is left child of left child)__
+**Case One (aka Left-Left - `N` is left child of left child)**
 
 ```
     G(B)
    /    \
-  P(R)  NIL(B)
+  P(R)  U(B)
  /
 N(R)
 ```
-Consider that a NIL leaf and a node colored black are the same in the algorithms
- logic
+Consider that a NIL leaf and a node colored black are the same logic
 
-__Case Two (aka Left-Right - `N` is right child of left child)__
+**Case Two (aka Left-Right - `N` is right child of left child)**
 
 ```
     G(B)
    /   \
-P(R)   NIL(B)
+P(R)   U(B)
    \
     N(R)
 ```
-Consider that a NIL leaf and a node colored black are the same in the algorithms
- logic
+Consider that a NIL leaf and a node colored black are the same logic
 
 
-Solutions to these violations of Property 4!!!
+__Solutions__
 
-**2a - Rotate grandparent right**
+**Solution One (aka Left-Left - `N` is left child of left child)**
 
 ```
 Initial insertion
 
     G(B)
    /    \
-  P(R)  NIL(B)
+  P(R)  U(B)
  /
 N(R)
 
@@ -235,7 +233,7 @@ Rotate G(B) right
    /    \
   N(R)  G(B)
           \
-          NIL(B)
+          U(B)
 
 Recolor
 
@@ -243,18 +241,18 @@ Recolor
    /    \
   N(R)  G(R)
           \
-          NIL(B)
+          U(B)
 
 ```
 
-**2b - Rotate parent left then rotate grandparent right**
+**Solution Two (aka Left-Left - `N` is left child of left child)**
 
 ```
 Initial insertion
 
     G(B)
    /    \
-  P(R)  NIL(B)
+  P(R)  U(B)
    \
    N(R)
 
@@ -262,7 +260,7 @@ Rotate P(R) left
 
     G(B)
    /    \
-  N(R)  NIL(B)
+  N(R)  U(B)
  /
 P(R)
 
@@ -273,7 +271,7 @@ Rotate G(B) right
    /    \
   P(R)  G(B)
           \
-          NIL(B)
+          U(B)
 
 Recolor
 
@@ -281,12 +279,15 @@ Recolor
    /    \
   P(R)  G(R)
           \
-          NIL(B)
+          U(B)
 
 ```
 
+__Implementation Tips and Tricks__
 
-
+1. After case one or case two no properties should be violated
+2. Recolor can recurse its way up the tree (to a rotate if needed)
+3. BST functionality is useful to build before building RBT functionality
 
 
 Insertion cases writeup: http://www.geeksforgeeks.org/red-black-tree-set-2-insert/
