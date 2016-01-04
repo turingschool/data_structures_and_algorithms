@@ -22,7 +22,7 @@ so let's run through some of them.
   are a "set" unto themselves (in addition to the "set" of vertices which contain the graph's
   data), but in programming we would often represent them as object references.
 
-* __Adjacency:__ 2 vertices are adjacent if there is an edge connecting them. 
+* __Adjacency:__ 2 vertices are adjacent if there is an edge connecting them.
 
 * __Graph:__ A data structure consisting of a set of Vertices and a set of Edges. Useful for
   modeling data where there are connections between different pieces of data.
@@ -53,10 +53,10 @@ When representing a graph textually, it's common to represent it as a set of ver
 And a set of Edges representing connections between pairs of vertices:
 
 ```
- {(1,7) ,(2,6) ,(3,1),(3,5) ,(4,6) ,(5,4),(5,2) ,(6,8) ,(7,2),(7,8)}
+ {(1,7), (2,6), (3,1), (3,5), (4,6), (5,4), (5,2), (6,8), (7,2), (7,8)}
 ```
 
-Mathematically, a graph is often represented as 2 _sets_ -- one of edges and one of vertices. 
+Mathematically, a graph is often represented as 2 _sets_ -- one of edges and one of vertices.
 
 ### Graph Types
 
@@ -82,6 +82,8 @@ various properties. Let's run through a few of these:
 
 * __Connected:__ A graph where all vertices can be reached from any other vertex -- i.e. every vertex is
   connected via some sequence of edges. (Opposite would be a __Disconnected Graph__)
+
+* __Strongly Connected:__ A graph where every vertex is reachable from every other vertex.
 
 ### Categorizing a Graph
 
