@@ -195,7 +195,7 @@ describe BinarySearchTree do
       assert_nil @tree.max
     end
 
-    it "finds the minimum value in the tree" do
+    it "finds the maximum value in the tree" do
       skip
       @tree.push(5)
       @tree.push(4)
