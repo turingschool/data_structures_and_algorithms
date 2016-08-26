@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Win One for the Zipper Tests</title>
+
+    <!-- testing frameworks -->
+    <link rel="stylesheet" media="all" href="../../_vendor/mocha.css">
+    <script src="../../_vendor/mocha.js"></script>
+    <script src="../../_vendor/chai.js"></script>
+    <script>
+      mocha.setup('bdd');
+      // window.expect = chai.expect;
+      window.assert = chai.assert;
+      window.onload = function() {
+        window.mochaPhantomJS ? mochaPhantomJS.run() : mocha.run();
+      };
+    </script>
+
+    <script src="compression.js"></script>
+
+    <script src="test.js"></script>
+
+  </head>
+  <body>
+    <div id="mocha"></div>
+  </body>
+</html>
