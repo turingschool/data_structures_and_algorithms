@@ -4,19 +4,19 @@ describe('TreeNode', function(){
       expect(node.data).to.eq(0);
     });
 
-    it('should have a default null value for left and right nodes', function(){
+    xit('should have a default null value for left and right nodes', function(){
       var node = new TreeNode(0);
       expect(node.left).to.eq(null);
       expect(node.right).to.eq(null);
     });
 
-    it('can have a left node', function(){
+    xit('can have a left node', function(){
       var node1 = new TreeNode(1);
       var node2 = new TreeNode(0, node1);
       expect(node2.left.data).to.eq(1);
     });
 
-    it('can assign a right node', function(){
+    xit('can assign a right node', function(){
       var node1 = new TreeNode(1);
       var node2 = new TreeNode(0, null, node1);
       expect(node2.right.data).to.eq(1);
@@ -31,7 +31,7 @@ describe('BST', function() {
   });
 
   context('when list is empty', function(){
-    it('rootNode is null', function(){
+    xit('rootNode is null', function(){
       expect(tree.rootNode).to.eq(null);
     });
   });
@@ -41,7 +41,7 @@ describe('BST', function() {
     // provide a nicer interface, we will accept raw numbers as inputs to
     // push, and handle wrapping the data in a Node internally
     context('when the tree is empty', function(){
-      it('creates a new root node', function(){
+      xit('creates a new root node', function(){
         tree.push(1);
         expect(tree.rootNode instanceof TreeNode).to.be.true;
         expect(tree.rootNode.data).to.eq(1)
@@ -49,7 +49,7 @@ describe('BST', function() {
     });
 
     context('when tree has only a rootNode', function(){
-      it('smaller data is added to the left', function(){
+      xit('smaller data is added to the left', function(){
         tree.push(5);
         expect(tree.rootNode.data).to.eq(5);
         tree.push(4);
@@ -59,7 +59,7 @@ describe('BST', function() {
         expect(tree.rootNode.right).to.eq(null);
       });
 
-      it('larger data is added to the left', function(){
+      xit('larger data is added to the left', function(){
         tree.push(5);
         expect(tree.rootNode.data).to.eq(5);
         tree.push(6);
@@ -69,7 +69,7 @@ describe('BST', function() {
         expect(tree.rootNode.left).to.eq(null);
       });
 
-      it('data equal to the rootNode is added to the left', function(){
+      xit('data equal to the rootNode is added to the left', function(){
         tree.push(5);
         expect(tree.rootNode.data).to.eq(5);
         tree.push(5);
@@ -80,7 +80,7 @@ describe('BST', function() {
     });
 
     context('when there are multiple nodes', function(){
-      it('continues adding smaller data to the left down the tree', function(){
+      xit('continues adding smaller data to the left down the tree', function(){
         tree.push(5);
         tree.push(4);
         tree.push(3);
@@ -89,7 +89,7 @@ describe('BST', function() {
         expect(tree.rootNode.left.left.data).to.eq(3, 'last node to the left not set correctly');
       });
 
-      it('continues adding larger data to the left down the tree', function(){
+      xit('continues adding larger data to the left down the tree', function(){
         tree.push(5);
         tree.push(6);
         tree.push(7);
@@ -98,7 +98,7 @@ describe('BST', function() {
         expect(tree.rootNode.right.right.data).to.eq(7, 'last node to the right not set correctly');
       });
 
-      it('creates a tree structure with multiple nodes', function(){
+      xit('creates a tree structure with multiple nodes', function(){
 //                   Node(1)
 //                   /
 //               Node(2)
@@ -134,7 +134,7 @@ describe('BST', function() {
 
   describe('.find', function(){
     context('in an empty tree', function(){
-      it('returns null', function(){
+      xit('returns null', function(){
         expect(tree.find(6)).to.eq(null);
       });
     });
@@ -144,13 +144,13 @@ describe('BST', function() {
         tree.push(5);
       });
 
-      it('can find a match', function(){
+      xit('can find a match', function(){
         var result = tree.find(5);
         expect(result instanceof TreeNode).to.eq(true, 'is not returning a TreeNode');
         expect(result.data).to.eq(5);
       });
 
-      it('returns null if no match', function(){
+      xit('returns null if no match', function(){
         var result = tree.find(80);
         expect(result).to.eq(null);
       });
@@ -178,31 +178,31 @@ describe('BST', function() {
                 tree.push(1);
       });
 
-      it('can find the root', function(){
+      xit('can find the root', function(){
         var result = tree.find(4);
         expect(result instanceof TreeNode).to.eq(true, 'is not returning a TreeNode');
         expect(result.data).to.eq(4);
       });
 
-      it('can find results to the immediate left', function(){
+      xit('can find results to the immediate left', function(){
         var result = tree.find(2);
         expect(result instanceof TreeNode).to.eq(true, 'is not returning a TreeNode');
         expect(result.data).to.eq(2);
       });
 
-      it('can find results to the far left', function(){
+      xit('can find results to the far left', function(){
         var result = tree.find(1);
         expect(result instanceof TreeNode).to.eq(true, 'is not returning a TreeNode');
         expect(result.data).to.eq(1);
       });
 
-      it('can find results to the immediate right', function(){
+      xit('can find results to the immediate right', function(){
         var result = tree.find(6);
         expect(result instanceof TreeNode).to.eq(true, 'is not returning a TreeNode');
         expect(result.data).to.eq(6);
       });
 
-      it('can find nested results', function(){
+      xit('can find nested results', function(){
         var result = tree.find(5);
         expect(result instanceof TreeNode).to.eq(true, 'is not returning a TreeNode');
         expect(result.data).to.eq(5);
@@ -212,7 +212,7 @@ describe('BST', function() {
         expect(result.data).to.eq(3);
       });
 
-      it('can return null if none found', function(){
+      xit('can return null if none found', function(){
         var result = tree.find(80);
         expect(result).to.eq(null);
       });
@@ -221,13 +221,13 @@ describe('BST', function() {
 
   describe('.toArray', function(){
     context('with an empty tree', function(){
-      it('returns an empty array', function(){
+      xit('returns an empty array', function(){
         expect(tree.toArray()).to.deep.eq([]);
       });
     });
 
     context('with nodes', function(){
-      it('pulls data from the tree into an array, starting with the left branches of the tree', function(){
+      xit('pulls data from the tree into an array, starting with the left branches of the tree', function(){
         tree.push(5);
         tree.push(4);
         tree.push(6);
@@ -240,13 +240,13 @@ describe('BST', function() {
 
   describe('.sort', function(){
     context('with an empty tree', function(){
-      it('returns an empty array', function(){
+      xit('returns an empty array', function(){
         expect(tree.sort()).to.deep.eq([]);
       });
     });
 
     context('with nodes', function(){
-      it('returns a sorted array of tree elements', function(){
+      xit('returns a sorted array of tree elements', function(){
         tree.push(5)
         tree.push(4)
         tree.push(6)
@@ -263,11 +263,11 @@ describe('BST', function() {
     // note that given the inherent left/right structure of a binary search tree
     //it is possible to find the min or max elements without searching the entire tree
     context('with an empty tree', function(){
-      it('min returns null', function(){
+      xit('min returns null', function(){
         expect(tree.min()).to.eq(null);
       });
 
-      it('max returns null', function(){
+      xit('max returns null', function(){
         expect(tree.max()).to.eq(null);
       });
     });
@@ -294,11 +294,11 @@ describe('BST', function() {
                 tree.push(1);
       });
 
-      it('finds the min value', function(){
+      xit('finds the min value', function(){
         expect(tree.min()).to.eq(1);
       });
 
-      it('finds the max value', function(){
+      xit('finds the max value', function(){
         expect(tree.max()).to.eq(7);
       });
     });
@@ -306,7 +306,7 @@ describe('BST', function() {
 
   describe('.postOrdered', function(){
     context('with an empty tree', function(){
-      it('returns an empty array', function(){
+      xit('returns an empty array', function(){
         expect(tree.postOrdered()).to.deep.eq([]);
       });
     });
@@ -321,7 +321,7 @@ describe('BST', function() {
       //   / \
       //  1   3
       // should produce post_ordered output [1,3,2,5,4]
-      it('should give back elements in post-order', function(){
+      xit('should give back elements in post-order', function(){
         tree.push(4);
         tree.push(2);
         tree.push(5);
