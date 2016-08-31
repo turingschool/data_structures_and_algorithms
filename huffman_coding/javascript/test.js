@@ -3,56 +3,104 @@ var message = "That's no moon, it's a space station!"
 var encoder = new Encoder(message);
 
 describe('compression', function() {
-  context('trie', function() {
-    it('is tested', function() {
-      assert.ok(false, 'You should probably write some unit tests for your trie and nodes');
+
+  context('leaf', function() {
+
+    it('has a character and a count', function() {
+      var leaf = new Leaf("J", 4);
+      assert.ok(leaf.character, 'has a character');
+      assert.ok(leaf.count, 'has a count');
     });
+
+    it('returns itself as an object', function() {
+      var leaf = new Leaf("J", 4);
+      assert.deepEqual(leaf.encoderObject("010"), {J: "010"}, 'has correct object returned');
+    });
+
   });
 
-  context('encoding', function() {
-    it.skip('can count all the characters in a message', function() {
+  context('node', function() {
 
-      var characterCounts = {"T": 1, "h": 1, "a": 4, "t": 4, "'": 2,
-        "s": 4, " ": 6, "n": 3, "o": 4, "m": 1, ",": 1,
-        "i": 2, "p": 1, "c": 1, "e": 1, "!": 1};
-
-      assert.deepEqual(encoder.characterCounts, characterCounts);
+    it('has a left node and a right node', function() {
+      var node = new Node(new Leaf(), new Leaf());
+      assert.ok(node.left, 'has a left node');
+      assert.ok(node.right, 'has a right node');
     });
 
-    it.skip('can convert characters to binary codes', function() {
+    it('has a count equal to the sum of the counts of its leaves', function() {
+      var node = new Node(new Leaf("!", 1), new Leaf("@", 2));
+      assert.equal(node.count, 3);
+    })
+
+    it('returns itself as an object', function() {
+      var leftLeaf = new Leaf("J", 1);
+      var rightLeaf = new Leaf("K", 1);
+      var node = new Node(leftLeaf, rightLeaf);
+      assert.deepEqual(node.encoderObject("0"), {J: "00", K: "01"}, 'has correct object returned');
+    });
+
+  });
+
+  context('rootNode', function() {
+    it('has a count equal to the message length', function() {
+      assert.equal(encoder.root.count, message.length)
+    })
+
+    it('has children that know about their parents', function() {
+      assert.equal(encoder.root, encoder.root.left.parent);
+      assert.equal(encoder.root, encoder.root.right.parent);
+    })
+
+    it('can unset parents', function() {
+      var tempEncoder = new Encoder('Cowabunga');
+      tempEncoder.root.unsetParents();
+      assert.isUndefined(tempEncoder.root.left.parent);
+      assert.isUndefined(tempEncoder.root.right.parent);
+    });
+  })
+
+  context('encoding', function() {
+
+    it('can convert characters to binary codes', function() {
       assert.match(encoder.characterToCode("T"), /^[01]+$/);
     });
 
-    it.skip('has shorter codes for characters with more frequency', function() {
+    it('has shorter codes for characters with more frequency', function() {
       var codeLengths = ["t", "!", "n", " "].map(function(character) {
         return encoder.characterToCode(character);
       });
       assert.deepEqual(codeLengths, codeLengths.sort());
     });
 
-  });
-
-  context("compression efficiency", function() {
-    it('can tell me the original bitstring', function() {
-      var messageBitstring = '101010011010001100001111010010011111100111000001101110110111110000011011011101111110111111011101011001000001101001111010010011111100111000001100001100000111001111100001100001110001111001011000001110011111010011000011110100110100111011111101110100001'
-      assert.deepEqual(encoder.originalBitstring, messageBitstring)
-    });
-
-    it.skip('can tell me the compressed bitstring', function() {
-      assert.match(encoder.compressedBitstring, /^[01]+$/);
-    });
-
-    it.skip('can tell me the compression efficiency', function() {
-      assert.isNumber(encoder.compressionEfficiency);
-      assert.isBelow(encoder.compressionEfficiency, 1);
+    it('can tell me the compressed bitstring', function() {
+      var compressed = "100001000111110000110001110111001011010010010010111010011110011100001100011101111110001101001111101011011011000100011110000111010111010111"
+      assert.equal(encoder.compressedBitstring, compressed);
     });
 
   });
 
   context("decoding", function() {
-    it.skip('can decode a compressed message', function() {
-      var decodedMessage = encoder.decode(encoder.compressedBitstring);
-      assert.equal(decodedMessage, message);
+    context("challenge 1", function() {
+      it.skip('can decode a compressed message', function() {
+        var decodedMessage = encoder.decode(encoder.compressedBitstring);
+        assert.equal(decodedMessage, message);
+      });
     });
+
+    context("challenge 2", function() {
+      it.skip('can decode from only a compressed bitstring and a tree', function() {
+        var decoder = new Decoder(encoder.compressedBitstring, encoder.root);
+        assert.equal(decoder.message(), message);
+      });
+    });
+
+    context("batman challenge", function() {
+      it.skip('can decode from only a compressed bitstring and a tree where the nodes have lost their parents', function() {
+        encoder.root.unsetParents();
+        var decoder = new Decoder(encoder.compressedBitstring, encoder.root);
+        assert.equal(decoder.message(), decoder.message());
+      });
+    });
+
   });
 });
