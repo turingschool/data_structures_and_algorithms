@@ -1,11 +1,10 @@
-var message = "That's no moon, it's a space station!"
+var message = "That's no moon, it's a space station!";
 
 var encoder = new Encoder(message);
 
 describe('compression', function() {
 
   context('leaf', function() {
-
     it('has a character and a count', function() {
       var leaf = new Leaf("J", 4);
       assert.ok(leaf.character, 'has a character');
@@ -44,12 +43,12 @@ describe('compression', function() {
   context('rootNode', function() {
     it('has a count equal to the message length', function() {
       assert.equal(encoder.root.count, message.length)
-    })
+    });
 
     it('has children that know about their parents', function() {
       assert.equal(encoder.root, encoder.root.left.parent);
       assert.equal(encoder.root, encoder.root.right.parent);
-    })
+    });
 
     it('can unset parents', function() {
       var tempEncoder = new Encoder('Cowabunga');
@@ -57,9 +56,18 @@ describe('compression', function() {
       assert.isUndefined(tempEncoder.root.left.parent);
       assert.isUndefined(tempEncoder.root.right.parent);
     });
-  })
+
+  });
 
   context('encoding', function() {
+    it('has an array of leaves', function() {
+      var numCharacters = _.uniq(message.split("")).length;
+      assert.equal(numCharacters, encoder.leaves.length);
+      encoder.leaves.forEach(function(leaf) {
+        assert.instanceOf(leaf, Leaf)
+      });
+
+    });
 
     it('can convert characters to binary codes', function() {
       assert.match(encoder.characterToCode("T"), /^[01]+$/);
