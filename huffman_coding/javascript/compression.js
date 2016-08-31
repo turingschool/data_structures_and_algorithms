@@ -1,3 +1,43 @@
+///////////////////////////////////////
+////  ♪┏(°.°)┛  LEAF  ┗(°.°)┓♪ ////
+///////////////////////////////////////
+function Leaf(character, count) {
+  this.character = character;
+  this.count = count;
+}
+
+Leaf.prototype.encoderObject = function(parentBits) {
+  return {[this.character]: parentBits}
+}
+
+Leaf.prototype.unsetParents = function() {
+  return this;
+}
+
+/////////////////////////////
+//// (>’.’)> NODE <(‘.'<) ///
+/////////////////////////////
+function Node(left, right) {
+  this.left = left;
+  this.right = right;
+
+  Object.defineProperties(this, {
+      count: {"get": function() { return this.left.count + this.right.count; }}
+  });
+}
+
+Node.prototype.encoderObject = function(parentBits = "") {
+  var leftEncoderObject = this.left.encoderObject(parentBits + "0");
+  var rightEncoderObject = this.right.encoderObject(parentBits + "1");
+  return _.extend(leftEncoderObject, rightEncoderObject);
+}
+
+Node.prototype.unsetParents = function() {
+  delete this.left.unsetParents().parent;
+  delete this.right.unsetParents().parent;
+  return this;
+}
+
 ///////////////////////////////////
 //// (⌐■_■)  ENCODER  (⌐■_■) ////
 //////////////////////////////////
@@ -41,55 +81,15 @@ Encoder.prototype.decode = function(compressedBitstring) {
 
 }
 
-/////////////////////////////
-//// (>’.’)> NODE <(‘.'<) ///
-/////////////////////////////
-function Node(left, right) {
-  this.left = left;
-  this.right = right;
-
-  Object.defineProperties(this, {
-      count: {"get": function() { return this.left.count + this.right.count; }}
-  });
-}
-
-Node.prototype.encoderObject = function(parentBits = "") {
-  var leftEncoderObject = this.left.encoderObject(parentBits + "0");
-  var rightEncoderObject = this.right.encoderObject(parentBits + "1");
-  return _.extend(leftEncoderObject, rightEncoderObject);
-}
-
-Node.prototype.unsetParents = function() {
-  delete this.left.unsetParents().parent;
-  delete this.right.unsetParents().parent;
-  return this;
-}
-
-///////////////////////////////////////
-////  ♪┏(°.°)┛  LEAF  ┗(°.°)┓♪ ////
-///////////////////////////////////////
-function Leaf(character, count) {
-  this.character = character;
-  this.count = count;
-}
-
-Leaf.prototype.encoderObject = function(parentBits) {
-  return {[this.character]: parentBits}
-}
-
-Leaf.prototype.unsetParents = function() {
-  return this;
-}
-
+///////////////////////////////////
+//// ><((((‘> DECODER <`))))>< ////
+///////////////////////////////////
 function Decoder(compressedBitstring, rootNode) {
   this.bitstring = compressedBitstring;
   this.root = rootNode;
 }
 
 Decoder.prototype.message = function(){
- //      o___o
- //      (^o^)
- //     o/( )\o
- //     O_.^._O
+ // TODO: It
  // YOU CAN DO IT!!
 }
