@@ -24,8 +24,10 @@ Building a tree isn't too difficult. The basics are in this [6 minute youtube vi
 
 So how do we get from `01111011100` to `'abcd'`?
 
-It's your job to write a decoder function, or rather functions. First, decode using the encoder itself. You'll have access to a list of leaves, the encoderObject function, and other things that may be helpful.
+It's your job to write a decoder function, or rather functions.
 
-Then create a Decoder class. It will be initialized by a compressed bitstring, and a huffman coding tree in the form of the root node. You no longer have access to the encoderObject or the leaves. Try to solve this one without recreating them from the tree.
+First, decode as part of the `Encoder` class itself. You'll have access to a list of `leaves`, the `encoderObject` function, and other things that may be helpful.
 
-The last challenge is the Batman challenge. You're still working with the Decoder class, but now the nodes of your tree have lost their parents. 
+Then create a `Decoder` class. It will be initialized by a compressed bitstring, and a huffman coding tree in the form of the root node. You no longer have access to the `encoderObject` or the `leaves` array. Try to solve this one without recreating those things.
+
+The last challenge is the Batman challenge. You're still working with the Decoder class, but now the nodes of your tree have lost their parents. Each node only has a `left` and a `right`
