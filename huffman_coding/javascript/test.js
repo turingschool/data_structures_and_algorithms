@@ -106,7 +106,7 @@ describe('compression', function() {
       it.skip('can decode from only a compressed bitstring and a tree where the nodes have lost their parents', function() {
         encoder.root.unsetParents();
         var decoder = new Decoder(encoder.compressedBitstring, encoder.root);
-        assert.equal(decoder.message(), decoder.message());
+        assert.equal(decoder.message(), message);
       });
     });
 
