@@ -6,19 +6,25 @@ This collection of exercises and experiments seeks to help you build an understa
 
 ### Included Topics
 
-* binary trees
-* pathfinding algorithms
-* luhn algorithm (checksumming)
-* tries
-* graphs
-* linked lists
-* bloom filters
+* binary trees - README|Ruby|JavaScript
+* Pathfinding Algorithm with A* - README|Ruby?
+* luhn algorithm (checksumming) - README|Ruby
+* graphs - README
+* linked lists - README|Ruby|JavaScript
+* bloom filters - README
+* Hash Array Mapped Trie - README
+* Hash Maps - README
+* Heaps - README
+* Huffman Coding - README|JavaScript
+* MD5 Hashing - README|Ruby
+* Red/Black Trees - README
+* SHA-1 - README
+* tries - README
 
 #### To-Do / Would like to cover
 
 * Skip Lists
-* Hash Maps
-* Red/Black Trees
 * Persistent Data Structures
 * Tries (more detail)
 * Hashing algorithm implementation (maybe start with MurmurHash?)
+* Dungeon Generation
