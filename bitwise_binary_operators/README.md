@@ -228,7 +228,7 @@ Now it's time to explain the `Bitwise AND` or `&`
 a & b 
 ```
 
-The Bitwise AND operator (`&`) returns a one in each position for the which the corresponding buts are both operands and ones.
+The Bitwise AND operator (`&`) returns a one in each position for the which the corresponding bits are both operands and ones.
 
 So if `0xFF` is the same as `11111111`...
 
