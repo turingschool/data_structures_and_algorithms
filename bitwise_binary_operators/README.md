@@ -48,8 +48,6 @@ If you recall, we want to convert this string to a decimal integer - so we pass 
 
 ## What is Binary
 
-@TODO: Description of Binary
-
 Computers count using binary, which is a number system made up of zeros and ones (bits). 
 
 So if we wanted to convert a Number to binary, we could do so in the following way.
@@ -73,8 +71,6 @@ Putting things all together, if you wanted to write a decimal to binary converte
   // if already number type, convert to string and convert back to Number
   // call Number's prototype function toString() and tell it base 2
 ```
-
-@TODO: If that JS function isn't enough for you, here's the math that's happening
 
 Note: What if the decimal is a negative number? Try reading through the top answer on this [StackOverflow](http://stackoverflow.com/questions/9939760/how-do-i-convert-an-integer-to-binary-in-javascript) and using the `>>>` (right logical shift)
 
@@ -157,24 +153,92 @@ RGB values are encoded as 8-bit integers.
 
 ## What is a Bitwise Operation
 
-A bitwise operation proccesses bits one at a time.
+A bitwise operation proccesses bits one at a time. In other languages, they can be refered to as bit `shifters` which might make what they do a little clearer.
 
 There is an [MDN article on how to use bitwise operators in JavaScript](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators).
 
-@TODO: Add table of operators
+> Bitwise operators treat their operands as a sequence of 32 bits (zeroes and ones), rather than as decimal, hexadecimal, or octal numbers. For example, the decimal number nine has a binary representation of 1001. Bitwise operators perform their operations on such binary representations, but they return standard JavaScript numerical values.
+
+Which basically means, these operators convert numbers to their bits and work with them at the bit level.
+
+#### An Example
+
+Integers are stored, in memory, as a series of bits. For example, the number 6 when stored as a 32-bit `int` is:
+
+```
+00000000 00000000 00000000 00000110
+```
+
+So if you shifted the bit patter to the left one position with a left shift operator `(6 << 1)`, it would be
+
+```
+00000000 00000000 00000000 00001100
+```
+
+Which equals `12` in decimal.
+
+Take a second to scroll up and look at the hexadecimal to binary table above and compare the 2 outcomes.
+
+0110 is 6 (in both hexadecimal and decimal symbols)
+
+1100 is 'c' in hexadecimal
+
+If you then convert hexadecimal to decimal `parseInt('c', 16)`
+
+You get 12.
+
+#### An Example with Color
+
+Bitwise operators are not something we use every day in JavaScript - but in the case of converting rgb to hex codes, it's super effective.
 
 ```javascript
 var hex = 'FFEBCD'; //blanchedalmond
 var rgb = parseInt(hex, 16); // 16772045
+// if we convert to a series of bits rgb = "111111111110101111001101"
 
 // 0xFF is the same as 11111111
 var r = (rgb >> 16) & 0xFF; // 255
 var g = (rgb >> 8) & 0xFF; // 235
 var b = rgb & 0xFF; // 205
 ```
-A bitwise operator enables you to use binary.
 
-@TODO: Add connection
+`(rbg >> 16)` = 255
+
+What happens is we right shift by 16 bits
+
+so 
+
+rbg is "111111111110101111001101"
+
+The r value is "11111111"
+
+`(rgb >> 8)` = 235
+
+So we shift right 8 bits
+
+The g value is "11101011"
+
+But then for blue, we do something interesting and take the entire bit sequence "111111111110101111001101"
+
+How does this work?
+
+Now it's time to explain the `Bitwise AND` or `&`
+
+```
+a & b 
+```
+
+The Bitwise AND operator (`&`) returns a one in each position for the which the corresponding buts are both operands and ones.
+
+So if `0xFF` is the same as `11111111`...
+
+then when we call `111111111110101111001101` & `11111111`
+
+We get `11001101`
+
+In other words, we get the last 8 bits.
+
+Mind blown? That's okay. Play around with it a little bit and [read through the docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators).
 
 # Next Steps
 
@@ -210,6 +274,7 @@ Knowing what you now know, can you create any of the following?
 
 - [What is a bit](https://en.wikipedia.org/wiki/Bit)
 - [MDN JavaScrpt Bitwise Operators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators)
+- http://stackoverflow.com/questions/141525/what-are-bitwise-shift-bit-shift-operators-and-how-do-they-work
 
 ## Meh Resources
 - http://rainyjune.net/node/341
