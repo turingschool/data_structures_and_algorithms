@@ -6,7 +6,7 @@ A [Bloom Filter](https://en.wikipedia.org/wiki/Bloom_filter) is a special-purpos
 data structure used to store _sets_ of data and determine if a given element is
 present in the set.
 
-There are other data structures we could use for this purpose (Hash Maps or Sets come to mind),
+There are other data structures we could use for this purpose ([Hash Maps](/hash_tables) or Sets come to mind),
 but Bloom Filters are particularly useful due to their space consumption properties.
 A Bloom Filter containing a given number of elements will consume much less space
 than a HashMap or Set containing the same elements.

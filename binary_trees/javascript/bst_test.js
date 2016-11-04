@@ -59,7 +59,7 @@ describe('BST', function() {
         expect(tree.rootNode.right).to.eq(null);
       });
 
-      xit('larger data is added to the left', function(){
+      xit('larger data is added to the right', function(){
         tree.push(5);
         expect(tree.rootNode.data).to.eq(5);
         tree.push(6);

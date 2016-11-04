@@ -1,7 +1,9 @@
 # Linked List Problem
 
-## Running the Tests
+Open the `test.html` page to see your tests run in the brower.
 
-You can run the tests in this folder in the browser.
+There are two sets of tests to get passing!
 
-To run in the browser, open the `index.html` page and you should see your tests.
+Start with the tests in `ListNode_test.js`
+
+Once those are passing, more on to the tests in `LinkedList_test.js`
