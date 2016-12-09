@@ -192,7 +192,7 @@ describe('LinkedList', function() {
       });
 
       it.skip('can convert to an array', function(){
-        expect(list.toArray()).to.deep.equal(['The', 'rain', 'in', 'spain']);
+        expect(list.toArray()).to.deep.equal(['The', 'rain', 'in', 'Spain']);
       });
     });
   });
@@ -289,7 +289,7 @@ describe('LinkedList', function() {
       list.insert(1, 'and');
       list.insert(3, 'night');
       expect(list._length).to.eq(4);
-      expect(list.toArray).to.deep.equal('dark', 'and', 'stormy', 'night');
+      expect(list.toArray()).to.deep.equal(['dark', 'and', 'stormy', 'night']);
     });
   });
 
@@ -304,7 +304,7 @@ describe('LinkedList', function() {
       list.insertArfter('dark', 'and');
       list.insertAfter('stormy', 'night');
       expect(list._length).to.eq(4);
-      expect(list.toArray).to.deep.equal('dark', 'and', 'stormy', 'night');
+      expect(list.toArray()).to.deep.equal(['dark', 'and', 'stormy', 'night']);
     });
   });
 
