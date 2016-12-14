@@ -18,7 +18,7 @@ In the above image, each `c` in your text gets replaced by `1011`, and each `a` 
 
 ### Building the tree
 
-Building a tree isn't too difficult. The basics are in this [6 minute youtube video](https://www.youtube.com/watch?v=ZdooBTdW5bM).
+All the code to build the tree from a given message is done for you and tested. If you're curious how it works, the basics are in this [6 minute youtube video](https://www.youtube.com/watch?v=ZdooBTdW5bM).
 
 ### Decoding
 
